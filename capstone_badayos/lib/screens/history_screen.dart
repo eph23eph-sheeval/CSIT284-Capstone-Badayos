@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../library_store.dart';
-import '../models.dart';
+import '../widgets/history_card.dart';
 
 class HistoryScreen extends StatelessWidget {
   final LibraryStore store;
@@ -8,8 +8,6 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
     return ListenableBuilder(
       listenable: store,
       builder: (context, _) {
@@ -20,32 +18,7 @@ class HistoryScreen extends StatelessWidget {
         return ListView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: history.length,
-          itemBuilder: (context, i) {
-            final HistoryEntry e = history[i];
-            final returned = e.returnDate != null;
-            return Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(e.bookTitle,
-                        style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 4),
-                    Text('Borrowed: ${formatDate(e.borrowDate)}'),
-                    Text('Due: ${formatDate(e.dueDate)}'),
-                    Text(
-                      returned
-                          ? 'Returned: ${formatDate(e.returnDate!)}'
-                          : 'Not yet returned',
-                      style: TextStyle(
-                          color: returned ? scheme.primary : scheme.error),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+          itemBuilder: (context, i) => HistoryCard(entry: history[i]),
         );
       },
     );

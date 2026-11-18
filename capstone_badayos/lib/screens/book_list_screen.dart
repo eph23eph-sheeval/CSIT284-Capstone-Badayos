@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../library_store.dart';
-import '../models.dart';
+import '../widgets/book_card.dart';
 import 'book_details_screen.dart';
 
 class BookListScreen extends StatefulWidget {
@@ -22,8 +22,6 @@ class _BookListScreenState extends State<BookListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
     return Column(
       children: [
         Padding(
@@ -50,31 +48,14 @@ class _BookListScreenState extends State<BookListScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: books.length,
                 itemBuilder: (context, i) {
-                  final Book book = books[i];
-                  return Card(
-                    child: ListTile(
-                      title: Text(book.title),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(book.author),
-                          const SizedBox(height: 4),
-                          book.isAvailable
-                              ? Text('Available',
-                                  style: TextStyle(color: scheme.primary))
-                              : Text(
-                                  'Borrowed - due ${formatDate(book.dueDate!)}',
-                                  style: TextStyle(color: scheme.error)),
-                        ],
-                      ),
-                      isThreeLine: true,
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => BookDetailsScreen(
-                              store: widget.store, bookId: book.id),
-                        ),
+                  final book = books[i];
+                  return BookCard(
+                    book: book,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BookDetailsScreen(
+                            store: widget.store, bookId: book.id),
                       ),
                     ),
                   );

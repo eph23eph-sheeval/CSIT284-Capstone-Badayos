@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../library_store.dart';
-import '../models.dart';
+import '../models/book.dart';
+import '../utils.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final LibraryStore store;

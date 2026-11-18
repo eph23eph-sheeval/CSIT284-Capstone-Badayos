@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'models.dart';
+import 'models/book.dart';
+import 'models/history_entry.dart';
 import 'sample_data.dart';
 
 class LibraryStore extends ChangeNotifier {
